@@ -29,30 +29,34 @@ else:
 		user.user_password = firstu.user_password
 		user.user_folder = firstu.user_folder
 login = Api.login(user.user_regno, user.user_password)
-if login[0] == True:
-	cookies = login[1]
-	loggedin = True
-	if first:
-		courses = Api.get_courses(cookies)
-		root = Tk()
-		root.withdraw()
-		folder_path = askdirectory()
-		print folder_path
-		user.user_folder = folder_path
-		db.add(user)
-		db.add_all(courses)
-		db.commit()
-	else:
-		courses = db.query(Course)
-		folder_path = user.user_folder
-		print folder_path
-	for course in courses:
-			if course.course_secret != "xyz":
-				Api.download(course, cookies, folder_path)
-	print "All done Successfully"
+try:
+	if login[0] == True:
+		cookies = login[1]
+		loggedin = True
+		if first:
+			courses = Api.get_courses(cookies)
+			root = Tk()
+			root.withdraw()
+			folder_path = askdirectory()
+			print folder_path
+			user.user_folder = folder_path
+			db.add(user)
+			db.add_all(courses)
+			db.commit()
+		else:
+			courses = db.query(Course)
+			folder_path = user.user_folder
+			print folder_path
+		for course in courses:
+				if course.course_secret != "xyz":
+					Api.download(course, cookies, folder_path)
+		print "All done Successfully"
 
-else:
-	print "Invalid Credentials Quitting the program"
+	else:
+		print "Invalid Credentials Quitting the program"
+except Exception,e: print str(e)
+
+raw_input("press any key to quit")
 
 	
 
