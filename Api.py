@@ -8,6 +8,7 @@ import json
 import os
 import urllib as url
 import re
+import sys, traceback
 from clint.textui import progress
 from requests.adapters import HTTPAdapter
 captcha_url = 'https://academics.vit.ac.in/student/captcha.asp'
@@ -125,21 +126,27 @@ class Api:
 			for link in soup.findAll('a'):
 				link_name = link.get('href')
 				link_name = head_url + '/' +  link_name
-				res = req.get(link_name, cookies = cookies, stream = True, timeout = 40)
-				link_file_name =  res.headers.get('Content-Disposition').split(';')[1].split('=')[1]
+				res = req.head(link_name, cookies = cookies, timeout = 40)
+				link_file_name = ''
+				try:
+					link_file_name =  res.headers.get('Content-Disposition').split(';')[1].split('=')[1]
+				except:
+					res.headers.get('Content-Disposition')
+					link_file_name = 'unrecognized_format'
 				if re.match(pattern, link_file_name):
 					file_name = re.split(pattern, link_file_name)[-1]
 					if os.path.isfile(os.path.join(location,file_name)):
 						print "Already Downloaded " + file_name
 					else:
 						print "Downloading " + file_name
+						res = req.get(link_name, cookies = cookies, stream = True, timeout = 40)
 						with open(os.path.join(location,file_name), 'wb') as f:
 							total_length = int(res.headers.get('content-length'))
 							for chunk in progress.bar(res.iter_content(chunk_size=1024), expected_size=(total_length/1024) + 1):
 								if chunk:
 									f.write(chunk)
 									f.flush()
-		except:
+		except Exception, a:
 			print "Connection is too Slow! Try again"
 	
 							
