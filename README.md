@@ -1,5 +1,5 @@
 # Note
-This version is obsolete now. However, it still can be used to download Winter 15-16 course page.
+This version is obsolete and no longer maintained.
 
 # Course-Page-Downloader (beta)
 Downloads contents of VIT Academics Course Page and organizes them nicely
