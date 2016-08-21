@@ -3,3 +3,4 @@ clint
 requests
 SQLAlchemy
 Pillow
+selenium

@@ -28,13 +28,13 @@ else:
 		user.user_regno = firstu.user_regno
 		user.user_password = firstu.user_password
 		user.user_folder = firstu.user_folder
-login = Api.login(user.user_regno, user.user_password)
+api = Api(user.user_regno, user.user_password)
 try:
-	if login[0] == True:
-		cookies = login[1]
+	login = api.login()
+	if login:
 		loggedin = True
 		if first:
-			courses = Api.get_courses(cookies)
+			courses = api.get_courses()
 			root = Tk()
 			root.withdraw()
 			folder_path = askdirectory()
@@ -46,10 +46,7 @@ try:
 		else:
 			courses = db.query(Course)
 			folder_path = user.user_folder
-			print folder_path
-		for course in courses:
-				if course.course_secret != "xyz":
-					Api.download(course, cookies, folder_path)
+		api.download(courses, folder_path)
 		print "All done Successfully"
 
 	else:
@@ -64,4 +61,3 @@ raw_input("press any key to quit")
 			
 		
  
-
