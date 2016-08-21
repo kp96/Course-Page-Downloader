@@ -1,3 +1,6 @@
+# Note
+This version is obsolete as VIT's server has an updated codebase. I am currently moving the `requests` part to `selenium` to tackle timeouts and also to make the code easier to update in case VIT Server's change their code. 
+
 # Course-Page-Downloader (beta)
 Downloads contents of VIT Academics Course Page and organizes them nicely
 
