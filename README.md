@@ -35,4 +35,7 @@ To clear cached data remove `course.db` file.
 
 
 ## Known Issues
-1. Need to work on timeouts.
+~~ 1. Need to work on timeouts. ~~
+2. Create binaries for Windows
+3. More options like file size limits, custom naming and so on.
+4. GUI using Tkinter - Help Required
