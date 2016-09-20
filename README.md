@@ -34,7 +34,7 @@ To clear cached data remove `course.db` file.
 
 
 
-## Known Issues
+## Known Issues and Addons
 1. ~~Need to work on timeouts.~~
 
 2. Create binaries for Windows
